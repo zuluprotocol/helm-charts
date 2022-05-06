@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $name }}
+  name: {{ $name }}-{{ $settings.data | toYaml | sha256sum | trunc 8 }}
 data:
 {{- range $fileName, $fileContent := $settings.data }}
   {{ $fileName | quote }}: !!str |-

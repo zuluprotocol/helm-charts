@@ -32,7 +32,7 @@ spec:
       {{- range $name, $settings := .Values.configMaps }}
       - name: {{ $name }}
         configMap:
-          name: {{ $name }}
+          name: {{ $name }}-{{ $settings.data | toYaml | sha256sum | trunc 8 }}
       {{- end}}
       {{- end}}
       containers:

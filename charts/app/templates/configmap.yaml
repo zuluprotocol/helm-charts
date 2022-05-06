@@ -6,7 +6,7 @@ metadata:
   name: {{ $name }}
 data:
 {{- range $fileName, $fileContent := $settings.data }}
-  {{ $fileName }}: |
+  {{ $fileName }}: !!str |-
 {{ $fileContent | indent 4 }}
 {{- end }}
 {{- end }}

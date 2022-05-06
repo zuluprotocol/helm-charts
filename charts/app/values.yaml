@@ -36,7 +36,18 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
 service:
+  containerPort: 80
   type: ClusterIP
   port: 80
 
@@ -80,3 +91,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+configMaps: {}
+
+command: []

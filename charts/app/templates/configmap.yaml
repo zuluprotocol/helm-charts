@@ -1,0 +1,11 @@
+{{- range $name, $settings := .Values.configMaps }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name }}
+data:
+{{- range $fileName, $fileContent := $settings.data }}
+  {{ $fileName }}: |-
+    {{ $fileContent }}
+{{- end }}

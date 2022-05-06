@@ -9,3 +9,4 @@ data:
   {{ $fileName }}: |-
     {{ $fileContent }}
 {{- end }}
+{{- end }}

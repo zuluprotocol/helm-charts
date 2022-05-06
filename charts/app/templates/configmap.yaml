@@ -7,6 +7,6 @@ metadata:
 data:
 {{- range $fileName, $fileContent := $settings.data }}
   {{ $fileName | quote }}: !!str |-
-{{ $fileContent | indent 4 }}
+{{ toYaml $fileContent | indent 4 }}
 {{- end }}
 {{- end }}

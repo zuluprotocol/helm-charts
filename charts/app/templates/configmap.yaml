@@ -6,7 +6,7 @@ metadata:
   name: {{ $name }}-{{ $settings.data | toYaml | sha256sum | trunc 8 }}
 data:
 {{- range $fileName, $fileContent := $settings.data }}
-  {{ $fileName | quote }}: !!str |-
+  {{ $fileName | quote }}:
 {{ toYaml $fileContent | indent 4 }}
 {{- end }}
 {{- end }}

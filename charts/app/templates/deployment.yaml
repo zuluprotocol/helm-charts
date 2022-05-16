@@ -57,9 +57,17 @@ spec:
               containerPort: {{ .Values.service.containerPort }}
               protocol: TCP
           livenessProbe:
+            {{- if .Values.livenessProbe }}
             {{- toYaml .Values.livenessProbe | nindent 12 }}
+            {{- else }}
+            {{- toYaml .Values.defaultLivenessProbe | nindent 12 }}
+            {{- end}}
           readinessProbe:
+            {{- if .Values.readinessProbe }}
             {{- toYaml .Values.readinessProbe | nindent 12 }}
+            {{- else }}
+            {{- toYaml .Values.defaultReadinessProbe | nindent 12 }}
+            {{- end}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

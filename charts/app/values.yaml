@@ -36,12 +36,14 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-livenessProbe:
+livenessProbe: null
+defaultLivenessProbe:
   httpGet:
     path: /
     port: http
 
-readinessProbe:
+readinessProbe: null
+defaultReadinessProbe:
   httpGet:
     path: /
     port: http

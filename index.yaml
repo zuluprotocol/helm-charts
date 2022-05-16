@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   app:
   - apiVersion: v2
+    created: "2022-05-16T12:33:35.682800666Z"
+    description: A Helm chart for Kubernetes
+    digest: 28a2147df63d6d95db4a93e0632dbf9ed19275980c778c6c755e3945c21a6a87
+    name: app
+    type: application
+    urls:
+    - https://github.com/vegaprotocol/helm-charts/releases/download/app-0.1.13/app-0.1.13.tgz
+    version: 0.1.13
+  - apiVersion: v2
     created: "2022-05-16T11:59:31.258629748Z"
     description: A Helm chart for Kubernetes
     digest: 79730e89c9cbf2a027e27dda10b4b5fe4d30885890e03672d0500b829ba7bcae
@@ -110,4 +119,4 @@ entries:
     urls:
     - https://github.com/vegaprotocol/helm-charts/releases/download/app-0.1.1/app-0.1.1.tgz
     version: 0.1.1
-generated: "2022-05-16T11:59:31.258695149Z"
+generated: "2022-05-16T12:33:35.682880066Z"

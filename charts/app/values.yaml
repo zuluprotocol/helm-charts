@@ -4,6 +4,13 @@
 
 replicaCount: 1
 
+replicasKind: Deployment
+# usage: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+volumeClaimTemplates: []
+# example:
+# - name: home-dir
+#   mountPath: /home/user
+#   storage: 2Gi
 image:
   repository: nginx
   pullPolicy: IfNotPresent

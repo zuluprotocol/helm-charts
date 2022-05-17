@@ -1,10 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ .Values.replicasKind }}
 metadata:
   name: {{ include "app.fullname" . }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
+  {{- if eq .Values.replicasKind "StatefulSet" }}
+  volumeClaimTemplates:
+  {{- range $volume := .Values.volumeClaimTemplates }}
+  - metadata:
+      name: {{ $volume.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storgae: {{ $volume.storage | default "1Gi" }}
+  {{- end }}
+  {{- end }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -47,8 +59,10 @@ spec:
           {{- if .Values.args }}
           args: {{ .Values.args }}
           {{- end }}
-          {{- if .Values.configMaps }}
+          {{- if or .Values.configMaps (eq .Values.replicasKind "StatefulSet") }}
           volumeMounts:
+
+          {{- if .Values.configMaps }}
           {{- range $name, $settings := .Values.configMaps }}
           {{- range $fileName, $fileContent := $settings.data }}
           - name: {{ $name }}
@@ -57,6 +71,15 @@ spec:
           {{- end}}
           {{- end}}
           {{- end}}
+
+          {{- if eq .Values.replicasKind "StatefulSet" }}
+          {{- range $volume := .Values.volumeClaimTemplates }}
+          - name: {{ $volume.name }}
+            mountPath: {{ $volume.mountPath }}
+          {{- end }}
+          {{- end }}
+
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.containerPort }}

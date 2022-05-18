@@ -7,7 +7,7 @@ replicaCount: 1
 replicasKind: Deployment
 
 # stateful set specific
-minReadySeconds: 10
+minReadySeconds: 1
 # usage: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 volumeClaimTemplates: []
 # example:

@@ -14,7 +14,7 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storageClassName: {{ $volume.storageClassName | default "standard-rwo" }}
+          storageClassName: {{ $volume.storageClassName | default "" }}
           storage: {{ $volume.storage | default "1Gi" }}
   {{- end }}
   {{- end }}

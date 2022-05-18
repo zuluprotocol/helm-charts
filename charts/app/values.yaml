@@ -13,7 +13,8 @@ volumeClaimTemplates: []
 # example:
 # - name: home-dir
 #   mountPath: /home/user
-#   storage: 2Gi
+#   storageClassName: ""
+#   storage: 1Gi
 # end of stateful set specific
 image:
   repository: nginx

@@ -23,7 +23,6 @@ spec:
   {{- end }}
   {{- if eq .Values.replicasKind "StatefulSet" }}
   serviceName: {{ include "app.fullname" . }}
-  minReadySeconds: {{ .Values.minReadySeconds }}
   {{- end }}
   selector:
     matchLabels:

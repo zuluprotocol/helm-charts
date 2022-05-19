@@ -12,9 +12,9 @@ spec:
       name: {{ $volume.name }}
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ $volume.storageClassName | default "" }}
       resources:
         requests:
-          storageClassName: {{ $volume.storageClassName | default "" }}
           storage: {{ $volume.storage | default "1Gi" }}
   {{- end }}
   {{- end }}

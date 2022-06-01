@@ -83,7 +83,7 @@ spec:
           {{- range $name, $settings := .Values.configMaps }}
           {{- range $fileName, $fileContent := $settings.data }}
           - name: {{ $name }}
-            mountPath: {{ $settings.mountPath }}/{{ $fileName }}
+            mountPath: {{ $settings.mountPath }}
             readOnly: true
           {{- end}}
           {{- end}}

@@ -71,9 +71,7 @@ spec:
           args: {{ .Values.args }}
           {{- end }}
 
-          {{- if .Values.env }}
-          env: {{ .Values.env }}
-          {{- end }}
+          env: {{ toYaml .Values.env | nindent 12 }}
 
           {{- if or .Values.secrets (or .Values.configMaps (eq .Values.replicasKind "StatefulSet")) }}
           volumeMounts:

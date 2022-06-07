@@ -73,8 +73,8 @@ spec:
 
           {{- if .Values.env }}
           env: {{ .Values.env }}
-          {{-end }}
-          
+          {{- end }}
+
           {{- if or .Values.secrets (or .Values.configMaps (eq .Values.replicasKind "StatefulSet")) }}
           volumeMounts:
 

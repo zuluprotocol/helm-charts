@@ -8,6 +8,8 @@ replicasKind: Deployment
 
 secrets: []
 
+env: []
+
 # stateful set specific
 minReadySeconds: 1
 # usage: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/

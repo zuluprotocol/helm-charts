@@ -72,7 +72,7 @@ spec:
 
       containers:
         {{- range $sideCar := .Values.sideCars}}
-        {{- toYaml $sideCar | nindent 8 }}
+        - {{- toYaml $sideCar | nindent 8 }}
         {{- end }}
 
         - name: {{ .Chart.Name }}

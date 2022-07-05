@@ -52,6 +52,12 @@ spec:
       {{- end}}
       {{- end}}
 
+      {{- range $configMap := .Values.additionalConfigMapReferences }}
+      - name: {{ $configMap.name }}
+        configMap:
+          name: {{ $configMap.name }}
+      {{- end }}
+
       {{- range $secret := .Values.secrets }}
       - name: {{ $secret.name }}
         secret:

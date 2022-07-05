@@ -43,7 +43,7 @@ spec:
       serviceAccountName: {{ include "app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.configMaps }}
+      {{- if or (or (.Values.configMaps .Values.secrets) .Values.volumes) }}
       volumes:
       {{- range $name, $settings := .Values.configMaps }}
       - name: {{ $name }}
@@ -52,6 +52,12 @@ spec:
       {{- end}}
       {{- end}}
 
+      {{- range $configMap := .Values.additionalConfigMapReferences }}
+      - name: {{ $configMap.name }}
+        configMap:
+          name: {{ $configMap.name }}
+      {{- end }}
+
       {{- range $secret := .Values.secrets }}
       - name: {{ $secret.name }}
         secret:
@@ -59,7 +65,16 @@ spec:
           defaultMode: {{ $secret.mode | default 0600 }}
       {{- end }}
 
+      {{- range $volume := .Values.volumes }}
+      - name: {{ $volume.name }}
+        emptyDir: {}
+      {{- end }}
+
       containers:
+        {{- range $sideCar := .Values.sideCars}}
+        {{- toYaml $sideCar | nindent 8 }}
+        {{- end }}
+
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -93,6 +108,11 @@ spec:
           {{- end}}
 
           {{- range $volume := .Values.volumeClaimTemplates }}
+          - name: {{ $volume.name }}
+            mountPath: {{ $volume.mountPath }}
+          {{- end }}
+
+          {{- range $volume := .Values.volumes }}
           - name: {{ $volume.name }}
             mountPath: {{ $volume.mountPath }}
           {{- end }}

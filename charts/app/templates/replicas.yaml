@@ -43,7 +43,7 @@ spec:
       serviceAccountName: {{ include "app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if or (or (.Values.configMaps .Values.secrets) .Values.volumes) }}
+      {{- if or (or .Values.configMaps .Values.secrets) .Values.volumes }}
       volumes:
       {{- range $name, $settings := .Values.configMaps }}
       - name: {{ $name }}

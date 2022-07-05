@@ -10,6 +10,12 @@ secrets: []
 
 env: []
 
+# additional containers - full definition
+sideCars: []
+
+# empty dirs
+volumes: []
+
 # stateful set specific
 minReadySeconds: 1
 # usage: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/

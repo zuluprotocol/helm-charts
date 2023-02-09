@@ -41,8 +41,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "app.serviceAccountName" . }}
+      {{- if .Values.podSecurityContext }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       {{- if or (or .Values.configMaps .Values.secrets) .Values.volumes }}
       volumes:
       {{- range $name, $settings := .Values.configMaps }}
@@ -76,9 +78,11 @@ spec:
         {{- end }}
 
         - name: {{ .Chart.Name }}
+          {{- if .Values.podSecurityContext }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          {{- end }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion | default "latest"}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.command }}
           command: {{ .Values.command }}
@@ -86,8 +90,9 @@ spec:
           {{- if .Values.args }}
           args: {{ .Values.args }}
           {{- end }}
-
+          {{- if .Values.env }}
           env: {{ toYaml .Values.env | nindent 12 }}
+          {{- end}}
 
           {{- if or .Values.secrets (or .Values.configMaps (eq .Values.replicasKind "StatefulSet")) }}
           volumeMounts:
@@ -134,8 +139,10 @@ spec:
             {{- else }}
             {{- toYaml .Values.defaultReadinessProbe | nindent 12 }}
             {{- end}}
+          {{- if .Values.resources }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

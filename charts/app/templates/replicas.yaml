@@ -89,7 +89,7 @@ spec:
           {{- end }}
           {{- if .Values.args }}
           args: {{ range .Values.args }}
-          - {{ . }}
+          - {{ . | quote }}
           {{- end }}
           {{- end }}
           {{- if .Values.env }}

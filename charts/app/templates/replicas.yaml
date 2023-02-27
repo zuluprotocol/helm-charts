@@ -107,11 +107,9 @@ spec:
 
 
           {{- range $name, $settings := .Values.configMaps }}
-          {{- range $fileName, $fileContent := $settings.data }}
           - name: {{ $name }}
             mountPath: {{ $settings.mountPath }}
             readOnly: true
-          {{- end}}
           {{- end}}
 
           {{- range $volume := .Values.volumeClaimTemplates }}
